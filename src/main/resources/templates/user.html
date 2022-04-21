@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <style>
+        table {
+            width: 70%; /* Ширина таблицы */
+            background: black; /* Цвет фона таблицы */
+            color: black; /* Цвет текста */
+            border-spacing: 1px; /* Расстояние между ячейками */
+        }
+        td, th {
+            background: white; /* Цвет фона ячеек */
+            padding: 2px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <caption>USERS</caption>
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user : ${listUsers}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td><a th:href="@{/update/{id}(id=${user.id})}">Edit</a></td>
+        <!--        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>-->
+        <td>
+            <form th:method="DELETE" th:action="@{/delete/(id=${user.getId()})}">
+                <input type="submit" value="DEL"/>
+            </form>
+        </td>
+
+    </tr>
+
+</table>
+<p><a href="/create">Create user</a></p>
+</body>
+</html>
